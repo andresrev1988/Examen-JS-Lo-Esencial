@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta content="text/html"; charset="UTF-8" />
+
 	<title>Notas - Escuela</title>
 </head>
 
 <body>
 <header>
-	
+	<h1>Notas del Curso</h1>
 </header>
 
-</body>
+<p id="objetos"></p>
+<p id="calcular_promedio"></p>
+<p id="estudiante_mayor"></p>
+<p id="estudiante_menor"></p>
 
-<script type="text/javascript">
-	
+<button onclick="mostrarObjeto()"> Mostrar Objetos JSON</button>
+<button onclick="mostrarPromedio()">Calcular Promedio</button>
+<button onclick="mostrarMayor()">Calcular Promedio</button>
+<button onclick="mostrarMenor()">Calcular Promedio</button>
+
+</body>
+<!-- Iniciamos nuestro JavaScript-->
+
+<script >
+
+//Creamos el JSON
 	var notas_curso = [
 
     {
@@ -65,7 +79,26 @@
         "nombre": "JUAN CASTILLO",
         "nota": 80
     }  
-    ];
+];
+function leerJSON(id,json) {
+	var out = "-----------Estudiantes-----------<br>";
+	var i;
+	alert("Entre");
+	try {
+		for (i = 0; i < json.length; i++) {
+			out += "Código:" + json[i].codigo + "-" + "Nombre:" + json[i].nombre + "-" + "Nota:" + json[i].nota + "<br>";
+		}
+		document.getElementById(id).innerHTML = out;	 
+	} catch (error) {
+		alert("Existe un Error" + " - " + error.message);
+	}
+}
+
+function mostrarObjeto(){
+    leerJSON("objetos",notas_curso);
+}
+
+    
 </script>
 </html>
 
