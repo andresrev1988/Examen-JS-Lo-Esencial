@@ -2,13 +2,12 @@
 <html>
 <head>
 	<meta content="text/html"; charset="UTF-8" />
-
-	<title>Notas - Escuela</title>
+	<title>Notas - Escuela</title>	
 </head>
 
 <body>
 <header>
-	<h1>Notas del Curso</h1>
+	<h1>Notas del Curso</h1>	
 </header>
 
 <p id="objetos"></p>
@@ -22,12 +21,8 @@
 <button onclick="mostrarMenor()">Calcular Promedio</button>
 
 </body>
-<!-- Iniciamos nuestro JavaScript-->
-
-<script >
-
-//Creamos el JSON
-	var notas_curso = [
+<script type="text/javascript" source="js/funciones.js">
+ var notas_curso = [
 
     {
         "codigo": "001",
@@ -80,12 +75,11 @@
         "nota": 80
     }  
 ];
+
 function leerJSON(id,json) {
-	var out = "-----------Estudiantes-----------<br>";
-	var i;
-	alert("Entre");
+	var out = "-----------Estudiantes-----------<br>";	
 	try {
-		for (i = 0; i < json.length; i++) {
+		for (var i = 0; i < json.length; i++) {
 			out += "Código:" + json[i].codigo + "-" + "Nombre:" + json[i].nombre + "-" + "Nota:" + json[i].nota + "<br>";
 		}
 		document.getElementById(id).innerHTML = out;	 
@@ -94,11 +88,25 @@ function leerJSON(id,json) {
 	}
 }
 
+function calcularPromedio(id,json) {
+
+    var out = "Total Promedio: ";
+    var totalPromedio = 0.0;
+    for (var i = 0; i < json.length; i++) {
+        totalPromedio += json[i].nota;
+    }
+    totalPromedio=totalPromedio/i;
+    document.getElementById(id).innerHTML = out+totalPromedio;	 
+}
+
+
+
+function mostrarPromedio(){
+    calcularPromedio("calcular_promedio",notas_curso);
+}
 function mostrarObjeto(){
     leerJSON("objetos",notas_curso);
 }
 
-    
 </script>
 </html>
-
