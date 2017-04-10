@@ -17,8 +17,8 @@
 
 <button onclick="mostrarObjeto()"> Mostrar Objetos JSON</button>
 <button onclick="mostrarPromedio()">Calcular Promedio</button>
-<button onclick="mostrarMayor()">Calcular Promedio</button>
-<button onclick="mostrarMenor()">Calcular Promedio</button>
+<button onclick="mostrarMayor()">Calcular Mayor</button>
+<button onclick="mostrarMenor()">Calcular Menor</button>
 
 </body>
 <script type="text/javascript" source="js/funciones.js">
@@ -26,8 +26,8 @@
 
     {
         "codigo": "001",
-        "nombre": "ANDRÉS REVELO",
-        "nota": 100
+        "nombre": "DIEGO RUIZ",
+        "nota": 93
     } ,
     {
         "codigo": "002",
@@ -36,13 +36,13 @@
     } ,  
     {
         "codigo": "003",
-        "nombre": "ANDRÉS REVELO",
-        "nota": 100
+        "nombre": "PEDRO RIOS",
+        "nota": 20
     } ,  
     {
         "codigo": "004",
-        "nombre": "MARIO LOPEZ",
-        "nota": 90
+        "nombre": "ANDRES REVELO",
+        "nota": 98
     } ,  
     {
         "codigo": "005",
@@ -57,7 +57,7 @@
     {
         "codigo": "007",
         "nombre": "MARIO MALDONADO",
-        "nota": 93
+        "nota": 91
     } ,  
     {
         "codigo": "008",
@@ -72,13 +72,13 @@
     {
         "codigo": "010",
         "nombre": "JUAN CASTILLO",
-        "nota": 80
+        "nota": 10
     }  
 ];
 
-function leerJSON(id,json) {
-	var out = "-----------Estudiantes-----------<br>";	
+function leerJSON(id,json) {	
 	try {
+		var out = "-----------Estudiantes-----------<br>";	
 		for (var i = 0; i < json.length; i++) {
 			out += "Código:" + json[i].codigo + "-" + "Nombre:" + json[i].nombre + "-" + "Nota:" + json[i].nota + "<br>";
 		}
@@ -89,23 +89,61 @@ function leerJSON(id,json) {
 }
 
 function calcularPromedio(id,json) {
-
-    var out = "Total Promedio: ";
-    var totalPromedio = 0.0;
-    for (var i = 0; i < json.length; i++) {
-        totalPromedio += json[i].nota;
-    }
-    totalPromedio=totalPromedio/i;
-    document.getElementById(id).innerHTML = out+totalPromedio;	 
+	try {
+    	var out = "Total Promedio: ";
+    	var totalPromedio = 0.0;
+    	for (var i = 0; i < json.length; i++) {
+	        totalPromedio += json[i].nota;
+    	}
+    	totalPromedio=totalPromedio/i;
+    	document.getElementById(id).innerHTML = out+totalPromedio;	 
+    } catch (error) {
+		alert("Existe un Error" + " - " + error.message);
+	}
 }
 
+function calcularMayor(id,json) {
+	try {
+    	var out = "Estudiante con Mayor Nota: ";    
+    	var indice=0;
+    	for (var i = 0; i < json.length; i++) {      		    		   	
+    		if( json[i].nota >= json[indice].nota){    			
+    			indice=i;    			
+			}	
+		}							
+		document.getElementById(id).innerHTML = out+json[indice].nombre;		
+	} catch (error) {
+		alert("Existe un Error" + " - " + error.message);
+	}  	    		    
+}       
 
+
+function calcularMenor(id,json) {
+	try {
+    	var out = "Estudiante con Mayor Nota: ";    
+    	var indice=0;
+    	for (var i = 0; i < json.length; i++) {      		    		   	
+    		if( json[i].nota <= json[indice].nota){    			
+    			indice=i;    			
+			}	
+		}							
+		document.getElementById(id).innerHTML = out+json[indice].nombre;		
+	} catch (error) {
+		alert("Existe un Error" + " - " + error.message);
+	}  	   	    
+}
 
 function mostrarPromedio(){
     calcularPromedio("calcular_promedio",notas_curso);
 }
 function mostrarObjeto(){
     leerJSON("objetos",notas_curso);
+}
+function mostrarMayor(){
+    calcularMayor("estudiante_mayor",notas_curso);
+}
+function mostrarMenor(){
+    calcularMenor("estudiante_menor",notas_curso);
 }
 
 </script>
