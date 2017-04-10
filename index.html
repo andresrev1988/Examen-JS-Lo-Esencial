@@ -2,27 +2,37 @@
 <html>
 <head>
 	<meta content="text/html"; charset="UTF-8" />
-	<title>Notas - Escuela</title>	
+	<title>Notas - Escuela</title>			
 </head>
 
 <body>
 <header>
 	<h1>Notas del Curso</h1>	
+	
 </header>
 
-<p id="objetos"></p>
-<p id="calcular_promedio"></p>
-<p id="estudiante_mayor"></p>
-<p id="estudiante_menor"></p>
+<nav>
+	<button onclick="mostrarObjeto()"> Mostrar JSON</button>
+	<button onclick="mostrarPromedio()">Nota Promedio</button>
+	<button onclick="mostrarMayor()">Mayor Nota</button>
+	<button onclick="mostrarMenor()">Menor Nota</button>
+	<button onclick="mostrarAprobados()">Estudiantes Aprobados</button>
+	<button onclick="mostrarReprobados()">Estudiantes Reprobados</button>
+</nav>
 
-<button onclick="mostrarObjeto()"> Mostrar Objetos JSON</button>
-<button onclick="mostrarPromedio()">Calcular Promedio</button>
-<button onclick="mostrarMayor()">Calcular Mayor</button>
-<button onclick="mostrarMenor()">Calcular Menor</button>
+<p id="objetos"></p>
+<p id="promedio"></p>
+<p id="mayor"></p>
+<p id="menor"></p>
+<p id="aprobados"></p>
+<p id="reprobados"></p>
+
+
 
 </body>
-<script type="text/javascript" source="js/funciones.js">
- var notas_curso = [
+
+<script>
+var notas_curso = [
 
     {
         "codigo": "001",
@@ -80,7 +90,7 @@ function leerJSON(id,json) {
 	try {
 		var out = "-----------Estudiantes-----------<br>";	
 		for (var i = 0; i < json.length; i++) {
-			out += "Código:" + json[i].codigo + "-" + "Nombre:" + json[i].nombre + "-" + "Nota:" + json[i].nota + "<br>";
+			out += "Código:" + json[i].codigo + "-" + "Nombre:" + json[i].nombre + "-" + "Nota:" + json[i].nota + "<br>";			
 		}
 		document.getElementById(id).innerHTML = out;	 
 	} catch (error) {
@@ -133,18 +143,51 @@ function calcularMenor(id,json) {
 	}  	   	    
 }
 
-function mostrarPromedio(){
-    calcularPromedio("calcular_promedio",notas_curso);
-}
-function mostrarObjeto(){
-    leerJSON("objetos",notas_curso);
-}
-function mostrarMayor(){
-    calcularMayor("estudiante_mayor",notas_curso);
-}
-function mostrarMenor(){
-    calcularMenor("estudiante_menor",notas_curso);
+function leerAprobados(id,json) {	
+	try {
+		var out = "-----------Estudiantes Aprobados-----------<br>";	
+		for (var i = 0; i < json.length; i++) {
+			if(json[i].nota>70){
+				out += "Código:" + json[i].codigo + "-" + "Nombre:" + json[i].nombre + "-" + "Nota:" + json[i].nota + "<br>";
+				}	
+		}
+		document.getElementById(id).innerHTML = out;	 
+	} catch (error) {
+		alert("Existe un Error" + " - " + error.message);
+	}
 }
 
+function leerReprobados(id,json) {	
+	try {
+		var out = "-----------Estudiantes Reprobados-----------<br>";	
+		for (var i = 0; i < json.length; i++) {
+			if(json[i].nota<70){
+				out += "Código:" + json[i].codigo + "-" + "Nombre:" + json[i].nombre + "-" + "Nota:" + json[i].nota + "<br>";
+				}	
+		}
+		document.getElementById(id).innerHTML = out;	 
+	} catch (error) {
+		alert("Existe un Error" + " - " + error.message);
+	}
+}
+
+function mostrarPromedio(){
+        calcularPromedio("promedio",notas_curso);
+}
+function mostrarObjeto(){
+    leerJSON("objetos",notas_curso);        
+}
+function mostrarMayor(){
+    calcularMayor("mayor",notas_curso);
+}
+function mostrarMenor(){
+    calcularMenor("menor",notas_curso);
+}
+function mostrarAprobados(){
+	leerAprobados("aprobados",notas_curso);        
+}
+function mostrarReprobados(){
+	leerReprobados("reprobados",notas_curso);        
+}
 </script>
 </html>
